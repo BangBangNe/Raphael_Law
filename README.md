@@ -1,17 +1,17 @@
 # Raphael × Law
 
-Trang giới thiệu yumeship **Raphael Dominick** (OC) × **Trafalgar Law** (One Piece), làm thành một tập bệnh án do bác sĩ Law ghi. Có hai phiên bản: Ver. Nam và Ver. Nữ, mỗi bản một cốt truyện.
+Trang giới thiệu yumeship **Raphael Dominick** (OC) × **Trafalgar Law** (One Piece), theo chủ đề thời gian ngưng đọng: phòng tối ánh nến, bánh răng đồng hồ, giữ chuột để dừng thời gian, và cảnh cao trào đồng hồ chạy ngược rồi vỡ gương. Có hai phiên bản: Ver. Nam và Ver. Nữ, mỗi bản một cốt truyện.
 
 ## Xem trang
 
-Mở `index.html` bằng trình duyệt, hoặc bật GitHub Pages (Settings → Pages → Deploy from branch `main`, thư mục `/`). Trang không dùng thư viện ngoài, chỉ tải font từ Google Fonts.
+Mở `index.html` bằng trình duyệt, hoặc bật GitHub Pages (Settings → Pages → Deploy from branch `main`, thư mục `/`). Trang dùng GSAP (cdnjs) cho hiệu ứng cuộn và font từ Google Fonts.
 
 ## Cấu trúc
 
 ```
 index.html        nội dung trang
 css/style.css     màu, font, bố cục (đổi màu chủ đạo ở :root)
-js/main.js        hiệu ứng, nút đổi phiên bản, đồng hồ, tấm gương, gallery
+js/main.js        hiệu ứng, đổi phiên bản, dừng thời gian, cảnh cao trào, gallery
 assets/img/       tranh (.webp)
 ```
 
