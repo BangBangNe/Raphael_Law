@@ -1,12 +1,10 @@
 # Raphael × Law
 
-Trang giới thiệu yumeship **Raphael Dominick** (OC) × **Trafalgar Law** (One Piece), có hai phiên bản: Ver. Nam và Ver. Nữ, mỗi bản một cốt truyện.
+Trang giới thiệu yumeship **Raphael Dominick** (OC) × **Trafalgar Law** (One Piece), làm thành một tập bệnh án do bác sĩ Law ghi. Có hai phiên bản: Ver. Nam và Ver. Nữ, mỗi bản một cốt truyện.
 
 ## Xem trang
 
-Mở `index.html` bằng trình duyệt, hoặc bật GitHub Pages (Settings → Pages → Deploy from branch `main`, thư mục `/`).
-
-Thêm `?skip` vào cuối URL để bỏ qua màn loading khi đang sửa.
+Mở `index.html` bằng trình duyệt, hoặc bật GitHub Pages (Settings → Pages → Deploy from branch `main`, thư mục `/`). Trang không dùng thư viện ngoài, chỉ tải font từ Google Fonts.
 
 ## Cấu trúc
 

@@ -5,494 +5,348 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Raphael × Law</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Raphael Dominick × Trafalgar Law — một yumeship về thời gian, món nợ và lý do để sống.">
+<meta name="description" content="Bệnh án của Raphael Dominick, do bác sĩ Trafalgar Law ghi. Một yumeship hai phiên bản.">
 <meta property="og:title" content="Raphael × Law">
-<meta property="og:description" content="Law là ánh sáng của Raphael, người đã cho anh mục đích để sống.">
+<meta property="og:description" content="Bệnh nhân: Raphael Dominick. Bác sĩ phụ trách: Trafalgar Law. Tình trạng: đang hồi phục.">
 <meta property="og:image" content="assets/img/og-cover.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,100;1,9..144,300..700,100&family=Dancing+Script:wght@500;700&family=Literata:ital,opsz,wght@0,7..72,300..600;1,7..72,300..500&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Nunito:ital,wght@0,400..800;1,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=Patrick+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- ============ SVG SPRITES ============ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="watch" viewBox="0 0 64 72">
-    <circle cx="32" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="3"/>
-    <rect x="28" y="11" width="8" height="6" rx="2" fill="currentColor"/>
-    <circle cx="32" cy="44" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
-    <circle cx="32" cy="44" r="20" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/>
-    <path d="M32 44 L32 30 M32 44 L41 49" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
-    <circle cx="32" cy="44" r="2.5" fill="currentColor"/>
-  </symbol>
-  <symbol id="bird" viewBox="0 0 40 16"><path d="M0 9 Q10 0 20 9 Q30 0 40 9 Q30 4 20 13 Q10 4 0 9Z"/></symbol>
   <symbol id="spot" viewBox="0 0 24 24"><path d="M12 2c5 0 9 3 9 8 0 6-4 12-9 12S3 16 3 10c0-5 4-8 9-8Z"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3 1.7-1.8 3.1-3 5.3-3 3.7 0 5.8 3.8 4.3 7.3C19.5 16.4 12 21 12 21Z"/></symbol>
 </svg>
 
-<!-- ============ PRELOADER ============ -->
-<div class="loader" id="loader">
-  <div class="loader__inner">
-    <svg class="loader__clock" viewBox="0 0 120 120" aria-hidden="true">
-      <circle cx="60" cy="60" r="52" class="lc-ring"/>
-      <g class="lc-ticks"></g>
-      <line x1="60" y1="60" x2="60" y2="24" class="lc-min" id="lcMin"/>
-      <line x1="60" y1="60" x2="60" y2="36" class="lc-hr" id="lcHr"/>
-      <circle cx="60" cy="60" r="3.5" class="lc-pin"/>
-    </svg>
-    <p class="loader__word">Dominick</p>
-    <p class="loader__time">đang tua lại <span id="loaderTime">0</span> năm</p>
-  </div>
-</div>
+<div class="shell">
 
-<!-- ============ VERSION SWAP OVERLAY ============ -->
-<div class="swap" id="swap" aria-hidden="true">
-  <svg class="swap__clock"><use href="#watch"/></svg>
-  <p class="swap__txt" id="swapTxt">Đang chuyển sang một dòng thời gian khác…</p>
-</div>
+  <!-- ============ FOLDER TABS (nav) ============ -->
+  <aside class="tabs" aria-label="Mục lục hồ sơ">
+    <p class="tabs__brand">R<span>×</span>L</p>
+    <nav class="tabs__list">
+      <a href="#ho-so"><b>00</b>Bìa hồ sơ</a>
+      <a href="#benh-nhan"><b>01</b>Bệnh nhân</a>
+      <a href="#bac-si"><b>02</b>Bác sĩ</a>
+      <a href="#tien-su"><b>03</b>Tiền sử</a>
+      <a href="#trieu-chung"><b>04</b>Triệu chứng</a>
+      <a href="#dieu-tri"><b>05</b>Điều trị</a>
+      <a href="#bien-chung" data-ver-only="m"><b>06</b>Biến chứng</a>
+      <a href="#anh"><b>07</b>Ảnh đính kèm</a>
+      <a href="#ra-vien"><b>08</b>Ra viện</a>
+    </nav>
+  </aside>
 
-<!-- ============ OVERLAYS ============ -->
-<canvas id="sky" aria-hidden="true"></canvas>
-<div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"><span class="cursor__label"></span></div></div>
+  <main class="folder" id="folder">
 
-<header class="nav" id="nav">
-  <a href="#hero" class="nav__logo" data-scroll>R<span>×</span>L</a>
-  <nav class="nav__links" aria-label="Mục lục">
-    <a href="#prologue" data-scroll>Mở đầu</a>
-    <a href="#characters" data-scroll>Nhân vật</a>
-    <a href="#ability" data-scroll>Jikan Jikan</a>
-    <a href="#bond" data-scroll>Hai người</a>
-    <a href="#story" data-scroll>Cốt truyện</a>
-    <a href="#void" data-scroll data-ver-only="m">Hư vô</a>
-    <a href="#gallery" data-scroll>Gallery</a>
-  </nav>
-  <div class="ver" role="group" aria-label="Chọn phiên bản">
-    <button class="ver__btn" data-set-ver="m" aria-pressed="true">Ver. Nam</button>
-    <button class="ver__btn" data-set-ver="f" aria-pressed="false">Ver. Nữ</button>
-    <i class="ver__ink" aria-hidden="true"></i>
-  </div>
-  <div class="nav__progress"><i id="progress"></i></div>
-</header>
-
-<main id="smooth">
-
-<!-- ============ HERO ============ -->
-<section class="hero" id="hero">
-  <div class="hero__inner">
-    <div class="hero__content">
-      <p class="hero__kicker reveal-up">a yumeship · Jikan Jikan no Mi</p>
-      <h1 class="hero__title">
-        <span class="hero__name hero__name--r split-chars">Raphael</span>
-        <span class="hero__x">&amp;</span>
-        <span class="hero__name hero__name--l split-chars">Law</span>
-      </h1>
-      <p class="hero__script reveal-up">Everything is falling in love again</p>
-      <p class="hero__sub reveal-up">
-        <span data-ver-only="m">Một tên sát thủ vặt sống cho có, và vị bác sĩ đã “tiện tay” cứu anh. Từ một món nợ, Raphael chọn ở lại.</span>
-        <span data-ver-only="f">Cùng một Raphael, nhưng một dòng thời gian khác: lần này, người đã cứu anh là <em>cô</em>.</span>
-      </p>
-      <div class="hero__cta reveal-up">
-        <a href="#prologue" class="btn magnetic" data-scroll data-cursor="Vào"><span>Bước vào câu chuyện</span></a>
-        <p class="hero__note">Hai phiên bản, hai cốt truyện. Đổi ở góc trên bên phải.</p>
-      </div>
+    <!-- version switch: 2 hồ sơ -->
+    <div class="ver" role="group" aria-label="Chọn phiên bản">
+      <button class="ver__tab" data-set-ver="m" aria-pressed="true"><small>Hồ sơ A</small>Ver. Nam</button>
+      <button class="ver__tab" data-set-ver="f" aria-pressed="false"><small>Hồ sơ B</small>Ver. Nữ</button>
     </div>
 
-    <figure class="hero__window">
-      <div class="hero__arch">
-        <div class="art art--hero" data-ver-only="m" data-art="assets/img/m-falling" data-title="Everything is falling in love again" data-pos="50% 30%"></div>
-        <div class="art art--hero" data-ver-only="f" data-art="assets/img/f-sunset" data-title="Hoàng hôn" data-pos="52% 35%"></div>
-      </div>
-      <figcaption class="hero__cap"><span data-ver-only="m">Ver. Nam · cánh đồng cỏ vàng</span><span data-ver-only="f">Ver. Nữ · hoàng hôn</span></figcaption>
-    </figure>
-  </div>
-  <div class="hero__scroll"><span>cuộn xuống</span><i></i></div>
-</section>
+    <div class="stack" id="stack">
 
-<!-- ============ MARQUEE ============ -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee__track">
-    <span>Raphael Dominick</span><svg><use href="#watch"/></svg><span>Trafalgar Law</span><svg><use href="#watch"/></svg><span>Jikan Jikan no Mi</span><svg><use href="#watch"/></svg><span>Polar Tang</span><svg><use href="#watch"/></svg><span>Dressrosa</span><svg><use href="#watch"/></svg>
-    <span>Raphael Dominick</span><svg><use href="#watch"/></svg><span>Trafalgar Law</span><svg><use href="#watch"/></svg><span>Jikan Jikan no Mi</span><svg><use href="#watch"/></svg><span>Polar Tang</span><svg><use href="#watch"/></svg><span>Dressrosa</span><svg><use href="#watch"/></svg>
-  </div>
-</div>
-
-<!-- ============ PROLOGUE ============ -->
-<section class="prologue" id="prologue">
-  <div class="prologue__pin">
-    <p class="eyebrow">Mở đầu</p>
-    <p class="prologue__text split-words">
-      Lang thang một mình trên biển gần mười năm, Raphael không có ai bên cạnh. Anh không hiểu mình sống để làm gì, và lúc nào cũng sẵn sàng mất mạng.
-      Rồi một lần suýt chết sau trận ẩu đả, anh được Law tiện tay cứu. Khi ấy anh biết mình nợ người này.
-      Từ món nợ ban đầu, Raphael ở lại. Không ai buộc anh cả. Anh ở lại để nhìn Law sống, để thấy Law hạnh phúc.
-    </p>
-  </div>
-</section>
-
-<!-- ============ CHARACTERS ============ -->
-<section class="chars" id="characters">
-  <header class="sec-head">
-    <p class="eyebrow">Hồ sơ</p>
-    <h2 class="sec-title split-chars">Characters</h2>
-  </header>
-
-  <!-- RAPHAEL -->
-  <article class="char char--raph">
-    <div class="char__visual">
-      <div class="char__frame tilt">
-        <div class="art art--contain art--sketch" data-art="assets/img/raph-sketch" data-title="Raphael — phác thảo"></div>
-        <span class="char__glow"></span>
-      </div>
-      <p class="char__vname">RAPHAEL</p>
-    </div>
-
-    <div class="char__info">
-      <p class="eyebrow">OC · người cuối cùng của dòng họ Dominick</p>
-      <h3 class="char__name">Raphael <span>Dominick</span></h3>
-
-      <!-- ✎ Các ô có class "todo" là thông tin chưa có, điền sau -->
-      <dl class="stats">
-        <div><dt>Giới tính</dt><dd>Nam</dd></div>
-        <div><dt>Trái ác quỷ</dt><dd>Jikan Jikan no Mi <small>(thời gian)</small></dd></div>
-        <div><dt>Gia tộc</dt><dd>Dominick, giữ cổ vật đồng hồ thời gian</dd></div>
-        <div><dt>Nghề cũ</dt><dd>Trộm thuê, sát thủ vặt trong thế giới ngầm</dd></div>
-        <div><dt>Đặc điểm</dt><dd>Tóc đỏ, kính râm đỏ gài trên đầu</dd></div>
-        <div><dt>Bị săn đuổi bởi</dt><dd>Chính phủ thế giới · Thiên Long Nhân</dd></div>
-        <div class="todo"><dt>Tuổi / chiều cao</dt><dd>điền sau</dd></div>
-        <div class="todo"><dt>Truy nã</dt><dd>điền sau</dd></div>
-      </dl>
-
-      <div class="tabs" data-tabs>
-        <div class="tabs__nav" role="tablist">
-          <button role="tab" aria-selected="true">Tính cách</button>
-          <button role="tab">Vết thương</button>
-          <button role="tab">Với Law</button>
+    <!-- ============ 00 · COVER ============ -->
+    <section class="sheet cover" id="ho-so">
+      <header class="sheet__head"><span>Tờ 00</span><span>Polar Tang · phòng phẫu thuật</span></header>
+      <div class="cover__grid">
+        <div class="cover__text">
+          <p class="mono-label">Bệnh án số <span data-ver-only="m">A-0721</span><span data-ver-only="f">B-0721</span></p>
+          <h1 class="cover__title">Raphael <i>&amp;</i> Law</h1>
+          <p class="cover__sub">
+            <span data-ver-only="m">Bệnh nhân: một tên sát thủ vặt nhặt được ở góc khuất, sống cho có. Bác sĩ: người đã “tiện tay” cứu anh, rồi phải chịu anh bám theo suốt bảy năm.</span>
+            <span data-ver-only="f">Cùng một bệnh nhân, một dòng thời gian khác. Lần này, người khâu vết thương cho Raphael là <em>cô</em>.</span>
+          </p>
+          <p class="hand cover__note">Bệnh nhân lắm mồm. Theo dõi thêm. <span class="sig">— T. Law</span></p>
+          <a href="#benh-nhan" class="btn">Mở hồ sơ</a>
         </div>
-        <div class="tabs__panels">
-          <div class="tabs__panel is-active" role="tabpanel">
-            <p>Nhây, lắm mồm, tăng động. Cười khi không vui, nói đùa khi đang đau, và tỏ ra chẳng quan tâm gì đến mạng sống của mình. Anh không thật sự muốn chết, chỉ là không coi việc sống là chuyện quá quan trọng, nên lao vào nguy hiểm mà chẳng do dự.</p>
-            <p>Anh gắn bó với người mình quan tâm, nhưng sợ bị ghét hoặc bị bỏ lại. Vì vậy tình cảm thật lúc nào cũng được gói thành trò đùa, để không ai biết đâu là thật đâu là giả.</p>
-            <ul class="chips">
-              <li>Rizz không ngừng</li><li>Hay đòi ôm</li><li>Thỉnh thoảng tự cô lập</li><li>Ngủ ở một chỗ riêng</li><li>Lúc tăng động, lúc emo</li>
-            </ul>
-          </div>
-          <div class="tabs__panel" role="tabpanel">
-            <p>Những năm bị truy đuổi, giam giữ và ép buộc đã bào mòn phản xạ cảm xúc tự nhiên của Raphael. Ban đầu anh còn phản kháng, còn sợ, còn đau. Theo thời gian những phản ứng đó không mất đi mà bị nén xuống và làm mờ đi.</p>
-            <p>Đã từng có lúc anh đối diện với cái chết mà chẳng thấy gì cả. Anh quên luôn cả những cảm nhận đau đớn ấy và tin rằng mình đã vượt qua. Đôi khi anh tạo ra những cảm xúc không khớp với tình huống, nhưng vẫn nghĩ mình bình thường.</p>
-            <p class="quote-line">Một người bị tổn thương quá lâu, nên học cách sống như thể mọi thứ đều không quan trọng, kể cả bản thân mình.</p>
-          </div>
-          <div class="tabs__panel" role="tabpanel">
-            <p>Law là người đầu tiên khiến Raphael cảm nhận được cảm xúc của chính mình. Lúc đầu anh không biết đó là yêu. Anh chỉ thích cảm giác ấy, nên cứ bám theo Law để được cảm thấy nhiều hơn.</p>
-            <p>Mãi đến khi gặp Sanji, anh mới hiểu đó là tình yêu, và học luôn cách thể hiện của tên đầu bếp đó.</p>
-            <p class="quote-line">Raphael luôn ưu tiên Law, đặt mạng sống của Law lên trên tất cả.</p>
+        <figure class="polaroid polaroid--cover">
+          <span class="tape"></span>
+          <div class="art" data-ver-only="m" data-art="assets/img/m-falling" data-title="Everything is falling in love again" data-pos="50% 28%"></div>
+          <div class="art" data-ver-only="f" data-art="assets/img/f-sunset" data-title="Hoàng hôn" data-pos="52% 35%"></div>
+          <figcaption class="hand"><span data-ver-only="m">everything is falling in love again</span><span data-ver-only="f">hoàng hôn hôm đó</span></figcaption>
+        </figure>
+        <span class="stamp stamp--cover">Đã cứu sống</span>
+      </div>
+      <div class="ecg-strip" aria-hidden="true"><svg viewBox="0 0 600 40" preserveAspectRatio="none"><path d="M0 20 H120 L130 20 L136 8 L142 32 L150 2 L158 36 L164 20 H300 L310 20 L316 8 L322 32 L330 2 L338 36 L344 20 H480 L490 20 L496 8 L502 32 L510 2 L518 36 L524 20 H600"/></svg></div>
+    </section>
+
+    <!-- ============ 01 · PATIENT ============ -->
+    <section class="sheet" id="benh-nhan">
+      <header class="sheet__head"><span>Tờ 01</span><span>Thông tin bệnh nhân</span></header>
+      <div class="patient">
+        <figure class="polaroid polaroid--id">
+          <span class="tape"></span>
+          <div class="art art--sketch" data-art="assets/img/raph-sketch" data-title="Raphael" data-pos="50% 30%"></div>
+          <figcaption class="hand">ảnh hồ sơ (cậu ta tự vẽ)</figcaption>
+        </figure>
+        <div class="form">
+          <h2 class="form__name" id="patientName">Raphael Dominick</h2>
+          <!-- ✎ ô có class "blank" là thông tin chưa có -->
+          <dl class="fields">
+            <div><dt>Giới tính</dt><dd>Nam</dd></div>
+            <div><dt>Trái ác quỷ</dt><dd>Jikan Jikan no Mi (thời gian)</dd></div>
+            <div><dt>Gia tộc</dt><dd>Dominick · giữ cổ vật đồng hồ</dd></div>
+            <div><dt>Nghề nghiệp</dt><dd>Trộm thuê, sát thủ vặt</dd></div>
+            <div><dt>Đặc điểm</dt><dd>Tóc đỏ, kính râm đỏ gài trên đầu</dd></div>
+            <div><dt>Nơi ở</dt><dd>Không cố định · hay ghé Polar Tang</dd></div>
+            <div class="blank"><dt>Tuổi / chiều cao</dt><dd>chưa khai</dd></div>
+            <div class="blank"><dt>Tiền truy nã</dt><dd>chưa khai</dd></div>
+            <div class="fields__wide"><dt>Người liên hệ khẩn cấp</dt><dd id="emergency">Trafalgar Law <span class="hand pen">(tự ghi, không ai đồng ý)</span></dd></div>
+          </dl>
+          <div class="traits">
+            <p class="mono-label">Tính cách</p>
+            <p>Nhây, lắm mồm, tăng động. Cười khi không vui, nói đùa khi đang đau, tỏ ra chẳng quan tâm đến mạng sống của mình. Anh không thật sự muốn chết, chỉ là không coi việc sống là chuyện quá quan trọng, nên lao vào nguy hiểm mà chẳng do dự.</p>
+            <p>Gắn bó với người mình quan tâm nhưng sợ bị ghét, sợ bị bỏ lại. Vì vậy tình cảm thật lúc nào cũng được gói thành trò đùa, để không ai biết đâu là thật đâu là giả.</p>
+            <ul class="tags"><li>Rizz không ngừng</li><li>Hay đòi ôm</li><li>Thỉnh thoảng tự cô lập</li><li>Ngủ ở chỗ riêng</li><li>Lúc tăng động, lúc emo</li></ul>
           </div>
         </div>
       </div>
-    </div>
-  </article>
+    </section>
 
-  <!-- LAW -->
-  <article class="char char--law">
-    <div class="char__visual">
-      <div class="char__frame tilt">
-        <div class="art" data-ver-only="m" data-art="assets/img/m-phora" data-title="Law — Ver. Nam" data-pos="58% 45%"></div>
-        <div class="art" data-ver-only="f" data-art="assets/img/f-collar" data-title="Law — Ver. Nữ" data-pos="32% 40%"></div>
-        <span class="char__glow"></span>
-      </div>
-      <p class="char__vname">LAW</p>
-    </div>
-
-    <div class="char__info">
-      <p class="eyebrow">Canon · One Piece</p>
-      <h3 class="char__name">Trafalgar <span>D. Water Law</span></h3>
-
-      <dl class="stats">
-        <div><dt>Danh hiệu</dt><dd>Bác sĩ phẫu thuật tử thần</dd></div>
-        <div><dt>Thuyền</dt><dd>Băng Heart · tàu ngầm Polar Tang</dd></div>
-        <div><dt>Trái ác quỷ</dt><dd>Ope Ope no Mi</dd></div>
-        <div><dt>Phiên bản</dt><dd><span data-ver-only="m">Nam (canon)</span><span data-ver-only="f">Nữ (genderbend)</span></dd></div>
-      </dl>
-
-      <div class="law-note">
-        <p data-ver-only="m">Người “tiện tay” cứu một kẻ lạ mặt bất tỉnh, rồi phải chịu đựng tên đó bám theo suốt nhiều năm. Hay cáu, hay đúm vào mặt Raphael mỗi lần bị rizz, và luôn nghĩ những câu tỏ tình kia chỉ là đùa.</p>
-        <p data-ver-only="m">Ở Dressrosa, Raphael mới biết về quá khứ của Law, về Corazon, và về những gì Law đã mất.</p>
-        <!-- ✎ Ver. Nữ: sửa đoạn này theo cốt truyện bản nữ -->
-        <p data-ver-only="f">Vẫn là vị bác sĩ lạnh lùng, hay cáu và giỏi giấu mặt đỏ dưới vành mũ đốm. Lần này Raphael vẫn rizz không ngừng, chỉ khác là anh không còn phải giấu chuyện mình thật lòng sau lớp vỏ “hai thằng bạn đùa nhau”.</p>
-        <p data-ver-only="f" class="todo-line">✎ Cốt truyện Ver. Nữ chưa có trong tài liệu, phần này đang để tạm.</p>
-      </div>
-    </div>
-  </article>
-</section>
-
-<!-- ============ ABILITY ============ -->
-<section class="ability" id="ability">
-  <div class="ability__inner">
-    <header class="ability__head">
-      <p class="eyebrow">Năng lực</p>
-      <h2 class="ability__title">Jikan Jikan <em>no Mi</em></h2>
-      <p class="ability__en">TIME · TIME · FRUIT</p>
-    </header>
-
-    <div class="ability__grid">
-      <div class="ability__text">
-        <p>Dòng họ Dominick gắn liền với một cổ vật mang sức mạnh thời gian: chiếc đồng hồ có thể đưa người dùng về bất cứ điểm nào trong quá khứ, và chỉ người mang dòng máu Dominick mới dùng được. Chính phủ sợ họ dùng nó để tìm ra bí ẩn của Thế kỷ Trống, nên truy sát cả gia tộc.</p>
-        <p>Bố mẹ Raphael giấu chiếc đồng hồ rồi tự sát để bảo vệ con. Năm 12, 13 tuổi, anh lọt vào mắt Thiên Long Nhân, bị bắt và tra tấn để khai ra chỗ giấu. Anh không biết, và cũng không muốn khai.</p>
-        <p>Bất lực, bọn chúng tìm được trái <b>Jikan Jikan no Mi</b> và ép Raphael ăn. Trái này cho phép quay về quá khứ để sửa đổi, tạo ra một dòng thời gian mới đè lên dòng cũ. Cái giá là mạng sống của người dùng. Chúng muốn anh hy sinh để sửa lỗi lầm của chúng.</p>
-        <p class="ability__cost">Law bị ép ăn trái ác quỷ để được sống. Raphael bị ép ăn để chết.</p>
-      </div>
-
-      <div class="dial" id="dial">
-        <p class="dial__hint">Kéo kim đồng hồ <b>ngược chiều</b> để tua lại</p>
-        <div class="dial__face" id="dialFace" tabindex="0" role="slider" aria-label="Tua ngược thời gian" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-          <svg viewBox="0 0 200 200" aria-hidden="true">
-            <circle cx="100" cy="100" r="92" class="d-ring"/>
-            <circle cx="100" cy="100" r="80" class="d-ring2"/>
-            <path id="dialArc" class="d-arc" d=""/>
-            <g id="dialTicks"></g>
-            <line x1="100" y1="100" x2="100" y2="40" class="d-min" id="dialMin"/>
-            <line x1="100" y1="100" x2="100" y2="58" class="d-hr" id="dialHr"/>
-            <circle cx="100" cy="100" r="5" class="d-pin"/>
-          </svg>
+    <!-- ============ 02 · DOCTOR ============ -->
+    <section class="sheet" id="bac-si">
+      <header class="sheet__head"><span>Tờ 02</span><span>Bác sĩ phụ trách</span></header>
+      <div class="doctor">
+        <div class="badge">
+          <div class="badge__clip"></div>
+          <div class="badge__top"><span>HEART PIRATES</span><span>MED · 01</span></div>
+          <div class="badge__photo">
+            <div class="art" data-ver-only="m" data-art="assets/img/m-phora" data-title="Law — Ver. Nam" data-pos="58% 40%"></div>
+            <div class="art" data-ver-only="f" data-art="assets/img/f-collar" data-title="Law — Ver. Nữ" data-pos="32% 38%"></div>
+          </div>
+          <p class="badge__name">Trafalgar D.<br>Water Law</p>
+          <p class="badge__role">Bác sĩ phẫu thuật tử thần</p>
+          <dl class="badge__rows">
+            <div><dt>Trái ác quỷ</dt><dd>Ope Ope no Mi</dd></div>
+            <div><dt>Tàu</dt><dd>Polar Tang</dd></div>
+            <div><dt>Phiên bản</dt><dd><span data-ver-only="m">Nam · canon</span><span data-ver-only="f">Nữ · genderbend</span></dd></div>
+          </dl>
+          <div class="badge__spots" aria-hidden="true"><svg><use href="#spot"/></svg><svg><use href="#spot"/></svg><svg><use href="#spot"/></svg></div>
         </div>
-        <ol class="dial__stops" id="dialStops">
-          <li data-at="0"><b>Hiện tại</b><span>Polar Tang</span></li>
-          <li data-at="25"><b>Dressrosa</b><span>lần đầu dừng thời gian để cứu Law</span></li>
-          <li data-at="50"><b>Gặp Law</b><span>“nếu đây là thiên đường…”</span></li>
-          <li data-at="75"><b>Thiên Long Nhân</b><span>bị ép ăn trái Jikan</span></li>
-          <li data-at="100"><b>Cái giá</b><span>lần này không phải mạng sống, mà là sự tồn tại</span></li>
+
+        <div class="doctor__notes">
+          <p class="mono-label">Ghi chú về bác sĩ</p>
+          <p data-ver-only="m">Người “tiện tay” cứu một kẻ lạ mặt bất tỉnh, rồi phải chịu tên đó bám theo nhiều năm. Hay cáu, hay đúm vào mặt Raphael mỗi lần bị rizz, và luôn nghĩ những câu tỏ tình kia chỉ là trò đùa giữa hai thằng bạn.</p>
+          <p data-ver-only="m">Ở Dressrosa, Raphael mới biết về quá khứ của Law, về Corazon, và về những gì Law đã mất.</p>
+          <!-- ✎ Ver. Nữ: sửa theo cốt truyện bản nữ -->
+          <p data-ver-only="f">Vẫn là vị bác sĩ lạnh lùng, hay cáu, giỏi giấu mặt đỏ dưới vành mũ đốm. Raphael vẫn rizz không ngừng, chỉ khác là anh không còn phải núp sau lớp vỏ “hai thằng bạn đùa nhau”.</p>
+          <p data-ver-only="f" class="todo">✎ Cốt truyện Ver. Nữ chưa có trong tài liệu, phần này đang để tạm.</p>
+
+          <p class="mono-label">Trích hội thoại</p>
+          <div class="chat">
+            <p class="chat__b chat__b--r"><b>R</b>Law, cậu cưới tôi nhá</p>
+            <p class="chat__b chat__b--l"><b>L</b>Raph à, anh xàm vừa thôi &gt;:c</p>
+          </div>
+          <ul class="tags tags--warm" data-ver-only="m"><li>Một món nợ mạng</li><li>Kẻ bám đuôi × người hay cáu</li><li>Thật lòng giấu trong trò đùa</li><li>Bodyguard tự phong</li><li>Time travel</li><li>Hurt / comfort</li></ul>
+          <!-- ✎ Ver. Nữ: sửa trope -->
+          <ul class="tags tags--warm" data-ver-only="f"><li>Một món nợ mạng</li><li>Flirt × tsundere</li><li>Hoàng hôn</li><li>Bodyguard tự phong</li><li class="todo">✎ thêm trope</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 · HISTORY ============ -->
+    <section class="sheet" id="tien-su">
+      <header class="sheet__head"><span>Tờ 03</span><span>Tiền sử</span></header>
+      <h2 class="sheet__title">Jikan Jikan no Mi</h2>
+      <div class="history">
+        <ol class="hist">
+          <li><span class="hist__when">Trước khi sinh ra</span><p>Dòng họ Dominick giữ một cổ vật: chiếc đồng hồ đưa người dùng về bất cứ điểm nào trong quá khứ. Chỉ người mang dòng máu Dominick mới dùng được. Chính phủ sợ họ dùng nó để tìm ra bí ẩn của Thế kỷ Trống, nên truy sát cả gia tộc.</p></li>
+          <li><span class="hist__when">Thời thơ ấu</span><p>Để bảo vệ con, bố mẹ Raphael giấu chiếc đồng hồ đi rồi tự sát.</p></li>
+          <li><span class="hist__when">12 – 13 tuổi</span><p>Lọt vào mắt Thiên Long Nhân. Bị bắt, bị tra tấn để khai ra chỗ giấu đồng hồ. Anh không biết, và cũng không muốn khai.</p></li>
+          <li class="hist__key"><span class="hist__when">Sau đó</span><p>Bất lực, chúng ép Raphael ăn trái <b>Jikan Jikan no Mi</b>. Trái này cho phép quay về quá khứ và sửa đổi, tạo ra một dòng thời gian mới đè lên dòng cũ, với cái giá là mạng sống của người dùng. Chúng muốn anh hy sinh để sửa lỗi lầm của chúng.</p></li>
+          <li><span class="hist__when">Trốn thoát → ~20 tuổi</span><p>May mắn thoát được. Lang thang khắp nơi, sống bằng nghề trộm thuê, sát thủ vặt. Không nơi nương tựa, sống hay chết cũng như nhau.</p></li>
         </ol>
-        <div class="dial__keys">
-          <button type="button" class="chip-btn" id="dialBack">← Tua lại</button>
-          <button type="button" class="chip-btn" id="dialFwd">Về hiện tại →</button>
+        <aside class="sticky-note">
+          <p class="hand">Law bị ép ăn trái ác quỷ để được sống.<br>Raphael bị ép ăn để chết.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ 04 · SYMPTOMS + MONITOR ============ -->
+    <section class="sheet" id="trieu-chung">
+      <header class="sheet__head"><span>Tờ 04</span><span>Triệu chứng</span></header>
+      <div class="symptoms">
+        <div>
+          <h2 class="sheet__title">Cảm xúc bị nén</h2>
+          <ul class="checks">
+            <li>Cười khi không vui</li>
+            <li>Nói đùa khi đang đau</li>
+            <li>Không cảm thấy gì khi đối diện cái chết</li>
+            <li>Tạo ra cảm xúc không khớp tình huống, nhưng tin mình vẫn bình thường</li>
+            <li>Biến tình cảm thật thành trò đùa</li>
+            <li>Quên luôn cảm giác đau, tưởng mình đã vượt qua</li>
+          </ul>
+          <p class="hand pen diag">Chẩn đoán: không phải do khoa học. Nỗi đau quá khứ đã làm tê liệt cậu ta. Những năm bị truy đuổi, giam giữ, ép buộc đã nén mọi phản ứng xuống, làm mờ đi.</p>
+        </div>
+
+        <div class="monitor" id="monitor">
+          <div class="monitor__top">
+            <span class="monitor__lbl">ECG · cảm xúc</span>
+            <span class="monitor__bpm"><svg><use href="#heart"/></svg><b id="bpm">--</b> bpm</span>
+          </div>
+          <canvas id="ecg" aria-hidden="true"></canvas>
+          <p class="monitor__status" id="monStatus">Không ghi nhận cảm xúc</p>
+          <button type="button" class="btn btn--monitor" id="meetLaw" aria-pressed="false">Cho gặp Law</button>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+      <p class="after">Law là người đầu tiên khiến Raphael cảm nhận được cảm xúc của chính mình. Lúc đầu anh không biết đó là yêu, chỉ thích cảm giác ấy, nên cứ bám theo Law để được cảm thấy nhiều hơn. Mãi đến khi gặp Sanji anh mới hiểu đó là tình yêu, và học luôn cách thể hiện của tên đầu bếp.</p>
+    </section>
 
-<!-- ============ BOND ============ -->
-<section class="bond" id="bond">
-  <header class="sec-head">
-    <p class="eyebrow">Raphael &amp; Law</p>
-    <h2 class="sec-title split-chars">Two of Us</h2>
-  </header>
+    <!-- ============ 05 · PROGRESS NOTES (story) ============ -->
+    <section class="sheet" id="dieu-tri">
+      <header class="sheet__head"><span>Tờ 05</span><span>Ghi chép điều trị · <span data-ver-only="m">Ver. Nam</span><span data-ver-only="f">Ver. Nữ</span></span></header>
+      <h2 class="sheet__title">Cốt truyện</h2>
 
-  <ul class="tropes" data-ver-only="m">
-    <li>Một món nợ mạng</li><li>Kẻ bám đuôi × người hay cáu</li><li>Thật lòng giấu trong trò đùa</li><li>Bodyguard tự phong</li><li>Time travel</li><li>Hurt / comfort</li>
-  </ul>
-  <!-- ✎ Ver. Nữ: sửa trope -->
-  <ul class="tropes" data-ver-only="f">
-    <li>Một món nợ mạng</li><li>Flirt × tsundere</li><li>Hoàng hôn</li><li>Bodyguard tự phong</li><li class="todo-chip">✎ thêm trope</li>
-  </ul>
+      <!-- ===== VER. NAM ===== -->
+      <ol class="log" data-ver-only="m">
+        <li class="log__e">
+          <span class="log__when">Ngày 1</span>
+          <div class="log__body">
+            <h3>“Nếu đây là thiên đường…”</h3>
+            <p>Sau trận ẩu đả với một băng hải tặc, Raphael bị thương nặng, lết vào một góc khuất rồi ngất. Tỉnh dậy, thấy Law, anh tưởng mình chết rồi: “Nếu đây là thiên đường thì gu của tôi cũng ổn đấy.” Biết Law là bác sĩ, anh cảm kích lắm. Vài ngày sau, mỗi người một ngả.</p>
+            <p class="hand pen">BN tán tỉnh bác sĩ ngay khi vừa tỉnh. Sinh hiệu ổn.</p>
+          </div>
+          <figure class="polaroid polaroid--log"><span class="tape"></span><div class="art art--sketch" data-art="assets/img/m-veil" data-title="Thiên đường" data-pos="50% 25%"></div></figure>
+        </li>
+        <li class="log__e">
+          <span class="log__when">Dressrosa</span>
+          <div class="log__body">
+            <h3>Thời gian dừng một nhịp</h3>
+            <p>Gặp lại. Law suýt bị thương, Raphael dừng thời gian để cứu. Ở đây anh biết về quá khứ của Law, bản năng bảo vệ trỗi dậy, liều mạng định đi tẩn Doflamingo nhưng bị cản lại.</p>
+            <p class="hand pen">Đã cản. Suýt không kịp.</p>
+          </div>
+        </li>
+        <li class="log__e">
+          <span class="log__when">Polar Tang</span>
+          <div class="log__body">
+            <h3>Món nợ</h3>
+            <p>Đòi trả ơn nên đi theo Law luôn, dù bị kêu phiền. Thỉnh thoảng biến mất xử lý việc trong thế giới ngầm, nhưng phần lớn thời gian quay về Polar Tang chơi với Law. Vẫn ngủ ở một chỗ riêng, thỉnh thoảng tự cô lập.</p>
+            <p class="hand pen">Lại đòi ôm. Đã đúm vào mặt.</p>
+          </div>
+        </li>
+        <li class="log__e">
+          <span class="log__when">Ngày thường</span>
+          <div class="log__body">
+            <h3>Ghen với một đứa nhỏ</h3>
+            <p>Những ngày bình yên hiếm hoi. Phora, cô bé tóc vàng quen biết của Law, ngồi chễm chệ trên vai Law, còn Raphael thì ghen ra mặt.</p>
+          </div>
+          <figure class="polaroid polaroid--log polaroid--wide"><span class="tape"></span><div class="art" data-art="assets/img/m-phora" data-title="Phora" data-pos="50% 40%"></div></figure>
+        </li>
+        <li class="log__e log__e--red">
+          <span class="log__when">Bàn mổ</span>
+          <div class="log__body">
+            <h3>Lựa chọn của Raphael</h3>
+            <p>Lẽ ra Law đã cứu được anh. Nhưng Raphael không tin. Anh muốn Law hạnh phúc như cách Corazon từng khiến Law cười, và biết mình không phải Corazon. Nhân lúc hấp hối, anh ngăn Law chữa trị, dùng năng lực cuối cùng để thay đổi quá khứ của Law và hồi sinh Corazon.</p>
+            <p class="hand pen red">Hạnh phúc nào cũng có giá. Lần này không phải mạng sống, mà là sự tồn tại.</p>
+          </div>
+        </li>
+      </ol>
 
-  <div class="chat" aria-label="Đoạn hội thoại">
-    <p class="chat__b chat__b--r"><b>R</b> Law, cậu cưới tôi nhá</p>
-    <p class="chat__b chat__b--l"><b>L</b> Raph à, anh xàm vừa thôi &gt;:c</p>
-  </div>
+      <!-- ===== VER. NỮ ===== -->
+      <!-- ✎ Chưa có cốt truyện Ver. Nữ: sửa tiêu đề + nội dung từng mục -->
+      <ol class="log" data-ver-only="f">
+        <li class="log__e">
+          <span class="log__when">Tiền sử</span>
+          <div class="log__body">
+            <h3>Giữ nguyên</h3>
+            <p>Quá khứ của Raphael giống nhau ở cả hai phiên bản: gia tộc bị truy sát, trái Jikan Jikan no Mi, những năm lang thang.</p>
+          </div>
+        </li>
+        <li class="log__e">
+          <span class="log__when">✎ Mục 2</span>
+          <div class="log__body"><h3 class="todo">✎ Tiêu đề</h3><p class="todo">Điền cốt truyện Ver. Nữ ở đây.</p></div>
+          <figure class="polaroid polaroid--log"><span class="tape"></span><div class="art" data-art="assets/img/f-hug" data-title="Ôm" data-pos="50% 30%"></div></figure>
+        </li>
+        <li class="log__e">
+          <span class="log__when">✎ Mục 3</span>
+          <div class="log__body"><h3 class="todo">✎ Tiêu đề</h3><p class="todo">Điền cốt truyện Ver. Nữ ở đây.</p></div>
+          <figure class="polaroid polaroid--log polaroid--wide"><span class="tape"></span><div class="art" data-art="assets/img/f-collar" data-title="Túm cổ áo" data-pos="50% 35%"></div></figure>
+        </li>
+        <li class="log__e">
+          <span class="log__when">✎ Mục 4</span>
+          <div class="log__body"><h3 class="todo">✎ Tiêu đề</h3><p class="todo">Điền cốt truyện Ver. Nữ ở đây.</p></div>
+          <figure class="polaroid polaroid--log polaroid--wide"><span class="tape"></span><div class="art" data-art="assets/img/f-sunset" data-title="Hoàng hôn" data-pos="55% 35%"></div></figure>
+        </li>
+      </ol>
+    </section>
 
-  <div class="pov">
-    <div class="pov__side pov__side--l">
-      <div class="art" data-ver-only="m" data-art="assets/img/m-veil" data-title="Voan cưới" data-pos="50% 20%"></div>
-      <div class="art" data-ver-only="f" data-art="assets/img/f-hug" data-title="Ôm" data-pos="35% 30%"></div>
-      <div class="pov__text">
-        <p class="eyebrow">Trong mắt Raphael</p>
-        <p class="pov__big">Law là ánh sáng của anh.</p>
-        <p>Người cho anh mục đích để sống, lý do để yêu và để hạnh phúc. Raphael muốn Law có một chỗ dựa, nên lúc nào cũng đứng phía trước, dù Law chưa từng yêu cầu.</p>
+    <!-- ============ 06 · COMPLICATION (Ver. Nam) ============ -->
+    <section class="sheet sheet--void" id="bien-chung" data-ver-only="m">
+      <header class="sheet__head"><span>Tờ 06</span><span>Biến chứng</span></header>
+      <blockquote class="last">
+        <p>Raphael không bao giờ nói yêu Law một cách nghiêm túc. Tất cả đều được nói với nụ cười, như trò đùa giữa hai thằng bạn. Law từng bảo cậu đừng đùa kiểu đó nữa, và Raphael thật sự đã ngừng.</p>
+        <p>Từ đó cậu không nói yêu anh nữa. Cậu chỉ đứng sau lưng anh trong mọi trận chiến, luôn là người bị thương nhiều hơn, luôn là người quay lại con tàu sau mỗi lần biến mất.</p>
+        <p>Cho đến khi Raphael nằm trên bàn mổ của anh, máu thấm ướt cả ga giường, cậu mới nhìn anh, cười như mọi khi, và nói rằng thật ra trước đây cậu không hề đùa. Law nhận ra câu anh từng muốn Raphael ngừng nói lại là câu anh muốn được nghe nhất.</p>
+      </blockquote>
+
+      <div class="erase" id="erase" data-state="0">
+        <p class="erase__quote">“Đừng khóc, khi anh tỉnh lại, anh sẽ chẳng nhớ gì đâu. Tin em đi, nếu có kiếp sau, em vẫn sẽ cầu hôn anh.”</p>
+        <div class="erase__file">
+          <span class="mono-label">Họ tên bệnh nhân</span>
+          <p class="erase__name" id="eraseName" aria-live="polite">Raphael Dominick</p>
+          <p class="erase__msg" id="eraseMsg">&nbsp;</p>
+        </div>
+        <button type="button" class="btn btn--light" id="eraseBtn">Lật sang trang sau</button>
       </div>
-    </div>
-    <div class="pov__divider"><svg><use href="#watch"/></svg></div>
-    <div class="pov__side pov__side--r">
-      <div class="art" data-ver-only="m" data-art="assets/img/m-phora" data-title="Ngày thường" data-pos="40% 40%"></div>
-      <div class="art" data-ver-only="f" data-art="assets/img/f-sunset" data-title="Hoàng hôn" data-pos="62% 30%"></div>
-      <div class="pov__text">
-        <p class="eyebrow">Trong mắt Law</p>
-        <p class="pov__big" data-ver-only="m">“Phiền chết đi được.”</p>
-        <p class="pov__big" data-ver-only="f">“Phiền chết đi được.” <small>(nói vậy thôi)</small></p>
-        <p data-ver-only="m">Một tên lắm mồm cứ bám theo sau Dressrosa, bị đuổi mấy cũng quay lại Polar Tang. Law luôn nghĩ những câu tỏ tình kia chỉ là trò đùa giữa hai thằng bạn.</p>
-        <p data-ver-only="f">✎ Góc nhìn của Law bản nữ: điền theo cốt truyện Ver. Nữ.</p>
+    </section>
+
+    <!-- ============ 07 · ATTACHMENTS ============ -->
+    <section class="sheet" id="anh">
+      <header class="sheet__head"><span>Tờ 07</span><span>Ảnh đính kèm</span></header>
+      <div class="anh__head">
+        <h2 class="sheet__title">Gallery</h2>
+        <p class="hand pen">kéo thử mấy tấm ảnh · bấm để xem to</p>
       </div>
-    </div>
-  </div>
-
-  <blockquote class="letter" data-ver-only="m">
-    <p>Raphael không bao giờ nói yêu Law một cách nghiêm túc. Tất cả đều được nói với nụ cười, như trò đùa giữa hai thằng bạn. Law từng bảo cậu đừng đùa kiểu đó nữa, và Raphael thật sự đã ngừng.</p>
-    <p>Từ đó cậu không nói yêu anh nữa. Cậu chỉ đứng sau lưng anh trong mọi trận chiến, luôn là người bị thương nhiều hơn, luôn là người quay lại con tàu sau mỗi lần biến mất.</p>
-    <p>Cho đến khi Raphael nằm trên bàn mổ của anh, máu thấm ướt cả ga giường, cậu mới nhìn anh, cười như mọi khi, rồi nói rằng thật ra trước đây cậu không hề đùa. Và Law nhận ra câu nói anh từng muốn Raphael ngừng nói lại là câu anh muốn được nghe nhất, nhưng sẽ không bao giờ được nghe lại nữa.</p>
-  </blockquote>
-</section>
-
-<!-- ============ STORY (horizontal) ============ -->
-<section class="story" id="story">
-  <div class="story__pin">
-    <header class="story__head">
-      <p class="eyebrow"><span data-ver-only="m">Ver. Nam</span><span data-ver-only="f">Ver. Nữ</span> · flow cốt truyện</p>
-      <h2 class="sec-title">The Story</h2>
-      <p class="story__hint">cuộn xuống để lật trang →</p>
-    </header>
-
-    <!-- ===== VER. NAM ===== -->
-    <div class="story__track" data-ver-only="m">
-      <article class="chapter chapter--text">
-        <span class="chapter__no">I</span>
-        <div class="chapter__card"><svg><use href="#watch"/></svg><p>Chiếc đồng hồ bị giấu đi. Bố mẹ không còn.</p></div>
-        <h3>Dòng họ Dominick</h3>
-        <p>Chính phủ truy sát gia tộc giữ cổ vật thời gian. Để bảo vệ con, bố mẹ Raphael giấu chiếc đồng hồ rồi tự sát.</p>
-      </article>
-      <article class="chapter chapter--text">
-        <span class="chapter__no">II</span>
-        <div class="chapter__card"><p>12, 13 tuổi.<br>Tra tấn. Một trái ác quỷ.</p></div>
-        <h3>Thiên Long Nhân</h3>
-        <p>Không khai được chiếc đồng hồ, Raphael bị ép ăn Jikan Jikan no Mi để hy sinh mạng sống sửa sai cho chúng. May mắn, anh trốn thoát được.</p>
-      </article>
-      <article class="chapter chapter--text">
-        <span class="chapter__no">III</span>
-        <div class="chapter__card"><p>Sống hay chết<br>cũng như nhau.</p></div>
-        <h3>Lang thang</h3>
-        <p>Trộm thuê, sát thủ vặt, đến khoảng hai mươi tuổi. Một lần ẩu đả với băng hải tặc, anh bị thương nặng, lết vào một góc khuất rồi ngất đi.</p>
-      </article>
-      <article class="chapter">
-        <span class="chapter__no">IV</span>
-        <div class="art" data-art="assets/img/m-veil" data-title="Thiên đường" data-pos="50% 25%"></div>
-        <h3>“Nếu đây là thiên đường…”</h3>
-        <p>Tỉnh dậy, thấy Law, Raphael tưởng mình chết rồi: “Nếu đây là thiên đường thì gu của tôi cũng ổn đấy.” Biết Law là bác sĩ, anh cảm kích lắm. Vài ngày sau, mỗi người một ngả.</p>
-      </article>
-      <article class="chapter chapter--text">
-        <span class="chapter__no">V</span>
-        <div class="chapter__card chapter__card--warm"><svg><use href="#watch"/></svg><p>Thời gian dừng lại<br>đúng một nhịp.</p></div>
-        <h3>Dressrosa</h3>
-        <p>Gặp lại. Law suýt bị thương, Raphael dừng thời gian để cứu. Anh biết về quá khứ của Law, bản năng bảo vệ trỗi dậy, liều mạng định đi tẩn Doflamingo nhưng bị cản lại.</p>
-      </article>
-      <article class="chapter chapter--text">
-        <span class="chapter__no">VI</span>
-        <div class="chapter__card"><p>“Phiền chết đi được.”<br>Nhưng vẫn không đuổi.</p></div>
-        <h3>Polar Tang</h3>
-        <p>Đòi trả ơn nên đi theo Law luôn, dù bị kêu phiền. Thỉnh thoảng biến mất xử lý việc trong thế giới ngầm, rồi lại quay về. Rizz cho Law cáu, đòi ôm, và bị đúm vào mặt.</p>
-      </article>
-      <article class="chapter">
-        <span class="chapter__no">VII</span>
-        <div class="art" data-art="assets/img/m-phora" data-title="Phora" data-pos="50% 40%"></div>
-        <h3>Ngày thường</h3>
-        <p>Những ngày bình yên hiếm hoi. Phora, cô bé tóc vàng quen biết của Law, ngồi chễm chệ trên vai Law, còn Raphael thì ghen ra mặt.</p>
-      </article>
-      <article class="chapter chapter--text">
-        <span class="chapter__no">VIII</span>
-        <div class="chapter__card chapter__card--dark"><p>“Đừng khóc.<br>Khi anh tỉnh lại, anh sẽ chẳng nhớ gì đâu.”</p></div>
-        <h3>Bàn mổ</h3>
-        <p>Lẽ ra Law đã cứu được anh. Nhưng Raphael không tin. Nhân lúc hấp hối, anh dùng năng lực cuối cùng để thay đổi quá khứ của Law, hồi sinh Corazon. Cái giá là sự tồn tại của chính anh.</p>
-      </article>
-      <article class="chapter chapter--end">
-        <span class="chapter__no">IX</span>
-        <div class="art" data-art="assets/img/m-falling" data-title="Tỉnh lại" data-pos="50% 30%"></div>
-        <h3>Tỉnh lại</h3>
-        <p>Raphael ôm chặt Law và khóc. Trong hư vô, anh đã nhìn nỗi đau của Law lặp lại vô số lần. Và lần này, anh quay về.</p>
-      </article>
-    </div>
-
-    <!-- ===== VER. NỮ ===== -->
-    <!-- ✎ Chưa có cốt truyện Ver. Nữ trong tài liệu: sửa tiêu đề + đoạn văn từng chương -->
-    <div class="story__track" data-ver-only="f">
-      <article class="chapter chapter--text">
-        <span class="chapter__no">I</span>
-        <div class="chapter__card"><svg><use href="#watch"/></svg><p>Cùng một quá khứ.<br>Một tương lai khác.</p></div>
-        <h3>Dòng họ Dominick</h3>
-        <p>Quá khứ của Raphael giữ nguyên ở cả hai phiên bản: gia tộc bị truy sát, trái Jikan Jikan no Mi, những năm lang thang.</p>
-      </article>
-      <article class="chapter">
-        <span class="chapter__no">II</span>
-        <div class="art" data-art="assets/img/f-hug" data-title="Ôm" data-pos="50% 30%"></div>
-        <h3 class="todo-line">✎ Chương II</h3>
-        <p class="todo-line">Điền cốt truyện Ver. Nữ ở đây.</p>
-      </article>
-      <article class="chapter">
-        <span class="chapter__no">III</span>
-        <div class="art" data-art="assets/img/f-sunset" data-title="Hoàng hôn" data-pos="55% 35%"></div>
-        <h3 class="todo-line">✎ Chương III</h3>
-        <p class="todo-line">Điền cốt truyện Ver. Nữ ở đây.</p>
-      </article>
-      <article class="chapter">
-        <span class="chapter__no">IV</span>
-        <div class="art" data-art="assets/img/f-collar" data-title="Túm cổ áo" data-pos="50% 35%"></div>
-        <h3 class="todo-line">✎ Chương IV</h3>
-        <p class="todo-line">Điền cốt truyện Ver. Nữ ở đây.</p>
-      </article>
-      <article class="chapter chapter--text chapter--end">
-        <span class="chapter__no">?</span>
-        <div class="chapter__card chapter__card--warm"><p>Chương tiếp theo<br>vẫn đang được viết.</p></div>
-        <h3>To be continued…</h3>
-        <p>Dòng thời gian này còn đang chờ được kể.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ VOID (Ver. Nam) ============ -->
-<section class="void" id="void" data-ver-only="m">
-  <div class="void__inner">
-    <p class="eyebrow">Hư vô</p>
-    <div class="mirror" id="mirror">
-      <div class="mirror__front" id="mirrorFront">
-        <p class="mirror__quote">“Đừng khóc, khi anh tỉnh lại, anh sẽ chẳng nhớ gì đâu. Tin em đi, nếu có kiếp sau, em vẫn sẽ cầu hôn anh.”</p>
-        <button type="button" class="btn btn--glass" id="mirrorBtn" data-cursor="Chạm"><span>Chạm vào tấm gương</span></button>
+      <div class="gfilter" role="group" aria-label="Lọc ảnh">
+        <button class="chip is-on" data-filter="all">Tất cả</button>
+        <button class="chip" data-filter="m">Ver. Nam</button>
+        <button class="chip" data-filter="f">Ver. Nữ</button>
+        <button class="chip" data-filter="s">Phác thảo</button>
       </div>
-      <div class="mirror__shards" id="mirrorShards" aria-hidden="true"></div>
-      <div class="mirror__back" id="mirrorBack">
-        <p>Thế giới vỡ thành từng mảnh gương. Những mảnh gương ấy mang theo kỷ niệm giữa hai người, mang sự tồn tại của Raphael vào hư không.</p>
-        <p>Law cứ ngỡ tình yêu của Raphael chỉ là trò đùa. Cho đến khi tỉnh lại, không chỉ Law mà tất cả mọi người sẽ chẳng ai biết Raphael từng tồn tại.</p>
-        <p>Trong hư vô, Raphael phải sống lại từng giây phút trong quá khứ của chính mình, và nhìn người mình yêu đau khổ, mất đi gia đình, vô số lần, mà không thể làm gì.</p>
-        <p class="mirror__after">Rồi anh tỉnh lại, và ôm chặt lấy Law.</p>
-        <button type="button" class="chip-btn" id="mirrorReset">Ghép lại tấm gương</button>
+      <!-- ✎ Thêm ảnh: copy 1 <figure>, đổi data-art và data-tag (m / f / s) -->
+      <div class="board" id="board">
+        <figure class="polaroid pin" data-tag="m"><span class="tape"></span><div class="art" data-art="assets/img/m-falling" data-title="Everything is falling in love again"></div><figcaption class="hand">Ver. Nam · cánh đồng cỏ vàng</figcaption></figure>
+        <figure class="polaroid pin pin--wide" data-tag="f"><span class="tape"></span><div class="art" data-art="assets/img/f-sunset" data-title="Hoàng hôn"></div><figcaption class="hand">Ver. Nữ · hoàng hôn</figcaption></figure>
+        <figure class="polaroid pin" data-tag="f"><span class="tape"></span><div class="art" data-art="assets/img/f-hug" data-title="Ôm"></div><figcaption class="hand">Ver. Nữ · đòi ôm thành công</figcaption></figure>
+        <figure class="polaroid pin pin--wide" data-tag="m"><span class="tape"></span><div class="art" data-art="assets/img/m-phora" data-title="Phora"></div><figcaption class="hand">Ver. Nam · Phora trên vai Law, Raph ghen</figcaption></figure>
+        <figure class="polaroid pin" data-tag="f"><span class="tape"></span><div class="art" data-art="assets/img/f-collar" data-title="Túm cổ áo"></div><figcaption class="hand">Ver. Nữ · bị túm cổ áo</figcaption></figure>
+        <figure class="polaroid pin" data-tag="m s"><span class="tape"></span><div class="art art--sketch" data-art="assets/img/m-veil" data-title="Voan cưới"></div><figcaption class="hand">phác thảo · “Law, cậu cưới tôi nhá”</figcaption></figure>
+        <figure class="polaroid pin" data-tag="s"><span class="tape"></span><div class="art art--sketch" data-art="assets/img/raph-sketch" data-title="Raphael"></div><figcaption class="hand">phác thảo · Raphael</figcaption></figure>
       </div>
+    </section>
+
+    <!-- ============ 08 · DISCHARGE ============ -->
+    <section class="sheet slip" id="ra-vien">
+      <header class="sheet__head"><span>Tờ 08</span><span>Giấy ra viện</span></header>
+      <h2 class="slip__title">Giấy ra viện</h2>
+      <dl class="slip__rows">
+        <div><dt>Bệnh nhân</dt><dd>Raphael Dominick</dd></div>
+        <div><dt>Chẩn đoán cuối</dt><dd>Yêu <span class="hand pen">(xác nhận nhờ Sanji)</span></dd></div>
+        <div><dt>Tình trạng</dt><dd>Đang hồi phục · đã biết khóc, đã biết cười thật</dd></div>
+        <div><dt>Lời dặn</dt><dd class="hand pen big">Đừng biến mất nữa.</dd></div>
+      </dl>
+      <p class="slip__script">Everything is falling in love again</p>
+      <div class="slip__sign">
+        <span class="stamp">Ra viện</span>
+        <p><span class="hand sig big">T. Law</span><small>Bác sĩ phụ trách</small></p>
+      </div>
+      <footer class="foot">made with ♥ for my yumeship · art © owner · Law © Oda Eiichiro</footer>
+    </section>
+
     </div>
-  </div>
-</section>
+  </main>
+</div>
 
-<!-- ============ GALLERY ============ -->
-<section class="gallery" id="gallery">
-  <header class="sec-head">
-    <p class="eyebrow">Tranh &amp; khoảnh khắc</p>
-    <h2 class="sec-title split-chars">Gallery</h2>
-  </header>
-  <div class="gfilter" role="group" aria-label="Lọc tranh">
-    <button class="chip-btn is-on" data-filter="all">Tất cả</button>
-    <button class="chip-btn" data-filter="m">Ver. Nam</button>
-    <button class="chip-btn" data-filter="f">Ver. Nữ</button>
-    <button class="chip-btn" data-filter="s">Phác thảo</button>
-  </div>
-  <!-- ✎ Thêm tranh: copy 1 khối <figure>, đổi data-art và data-tag (m / f / s, cách nhau bằng dấu cách) -->
-  <div class="gallery__grid">
-    <figure class="gitem gitem--wide gitem--tall" data-tag="f"><div class="art" data-art="assets/img/f-sunset" data-title="Hoàng hôn"></div><figcaption>Ver. Nữ · hoàng hôn</figcaption></figure>
-    <figure class="gitem gitem--tall" data-tag="m"><div class="art" data-art="assets/img/m-falling" data-title="Everything is falling in love again"></div><figcaption>Ver. Nam · Everything is falling in love again</figcaption></figure>
-    <figure class="gitem gitem--wide" data-tag="m"><div class="art" data-art="assets/img/m-phora" data-title="Phora"></div><figcaption>Ver. Nam · Phora trên vai Law, Raph ghen</figcaption></figure>
-    <figure class="gitem gitem--tall" data-tag="f"><div class="art" data-art="assets/img/f-hug" data-title="Ôm"></div><figcaption>Ver. Nữ · đòi ôm thành công</figcaption></figure>
-    <figure class="gitem" data-tag="f"><div class="art" data-art="assets/img/f-collar" data-title="Túm cổ áo"></div><figcaption>Ver. Nữ · bị túm cổ áo</figcaption></figure>
-    <figure class="gitem gitem--tall" data-tag="m s"><div class="art art--sketch" data-art="assets/img/m-veil" data-title="Voan cưới"></div><figcaption>Phác thảo · “Law, cậu cưới tôi nhá”</figcaption></figure>
-    <figure class="gitem gitem--tall" data-tag="s"><div class="art art--sketch" data-art="assets/img/raph-sketch" data-title="Raphael"></div><figcaption>Phác thảo · Raphael</figcaption></figure>
-  </div>
-</section>
-
-<!-- ============ OUTRO ============ -->
-<section class="outro" id="outro">
-  <div class="outro__inner">
-    <svg class="outro__watch"><use href="#watch"/></svg>
-    <p class="outro__quote split-words">Hạnh phúc nào cũng có cái giá của nó. Lần này không phải mạng sống, mà là sự tồn tại của Raphael.</p>
-    <p class="outro__script">Everything is falling in love again</p>
-    <p class="outro__sign">Raphael Dominick × Trafalgar Law</p>
-    <a href="#hero" class="btn btn--ghost magnetic" data-scroll data-cursor="↑"><span>Quay về đầu</span></a>
-  </div>
-  <footer class="foot">made with ♥ for my yumeship · art © owner · Law © Oda Eiichiro</footer>
-</section>
-
-</main>
-
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox__close" aria-label="Đóng">×</button>
   <img alt="">
   <p class="lightbox__cap"></p>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
